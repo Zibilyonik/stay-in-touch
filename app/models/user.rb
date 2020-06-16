@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :friendships
+  has_many :friendships, dependent: :destroy
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: :friend_id
 
   def friends
@@ -35,8 +35,11 @@ class User < ApplicationRecord
   def friend?(user)
     friends.include?(user)
   end
+
   def friend_request(user)
     return "Error: User already is a friend or has a pending request from you" if current_user.friend?(user)
-    friends << user
-
+    current_user.friends << user
+    friendship.confirmed = false
+    friendship.save
+  end
 end
