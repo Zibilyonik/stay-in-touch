@@ -35,4 +35,8 @@ class User < ApplicationRecord
   def friend?(user)
     friends.include?(user)
   end
+  def friend_request(user)
+    return "Error: User already is a friend or has a pending request from you" if current_user.friend?(user)
+    friends << user
+
 end
