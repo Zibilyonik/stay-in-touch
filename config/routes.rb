@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'users/:id/friendship/create', to: 'friendships#create'
   post 'users/:id/friendship/create', to: 'friendships#create'
   post 'friendship/create', to: 'friendships#create'
+  post 'users/:id/friendships/:id', to: 'friendships#destroy'
   devise_for :users
 
   resources :users, only: [:index, :show] do
