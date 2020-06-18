@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id], status: false)
+    @friendship = Friendship.create(user_id: current_user.id, friend_id: params[:friend_id], confirmed: false)
     if @friendship.save
       redirect_to users_path, notice: 'You invited this person to a friendship.'
     else
@@ -13,14 +13,24 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friendship1 = current_user.friendships.find_by(user_id: params[:friend_id], friend_id: params[:user_id])
-    @friendship1 = current_user.inverse_friendships.find_by(user_id: params[:user_id], friend_id: params[:friend_id])
+    @friendship1 = Friendship.find_by(user_id: current_user.id, friend_id: params[:friend_id])
+    @friendship2 = Friendship.find_by(user_id: params[:friend_id], friend_id: current_user.id)
     if @friendship1 && @friendship2
       @friendship1.destroy
       @friendship2.destroy
       redirect_to users_path, notice: 'You deleted this person from your friends list.'
     else
       redirect_to users_path, alert: 'You cannot delete this person from your friends list.'
+    end
+  end
+  
+  def cancel
+    @friendship = Friendship.find_by(user_id: current_user.id, friend_id: params[:friend_id])
+    if @friendship1 
+      @friendship1.destroy
+      redirect_to users_path, notice: 'You cancelled your friend request.'
+    else
+      redirect_to users_path, alert: 'You cannot cancel your friend request.'
     end
   end
 end
