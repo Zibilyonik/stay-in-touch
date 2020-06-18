@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.new(friend_id: params[:friend_id])
+    @friendship = current_user.friendships.build(friend_id: params[:friend_id], status: false)
     if @friendship.save
       redirect_to users_path, notice: 'You invited this person to a friendship.'
     else

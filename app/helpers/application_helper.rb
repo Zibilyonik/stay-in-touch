@@ -23,7 +23,7 @@ module ApplicationHelper
     elsif !current_user.friend?(friend) && !friend.friend?(current_user)
       button_to('Add Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
     else
-      button_to('Accept Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
+      button_to('Accept Friend', user_friendships_path(user_id: friend.id, friend_id: current_user.id), method: :create)
     end
   end
 end
