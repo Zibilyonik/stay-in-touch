@@ -23,11 +23,11 @@ module ApplicationHelper
     if friendship1 && friendship2
       button_to('Delete Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :destroy)
     elsif !friendship1 && !friendship2
-      button_to('Add Friend', user_friendships_create_path(user_id: current_user.id, friend_id: friend.id), method: :create)
+      button_to('Add Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
     elsif friendship1 && !friendship2
-      button_to('Cancel Request', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :cancel)
+      button_to('Cancel Request', user_inverse_friendships_destroy_path(user_id: current_user.id, friend_id: friend.id), method: :cancel)
     else
-      button_to('Accept Friend', user_inverse_friendships_create_path(user_id: current_user.id, friend_id: friend.id), method: :create)
+      button_to('Accept Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
     end
   end
 end
