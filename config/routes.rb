@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'posts#index'
-
+  post '/users/:user_id/friendships/:id', to: "friendships#destroy"
   devise_for :users
 
   resources :users, only: [:index, :show] do
