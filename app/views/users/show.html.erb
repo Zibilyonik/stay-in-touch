@@ -1,7 +1,12 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
   <span> <%= friend_request_button(@user) %> </span>
+  <h2>Friends:</h2>
   <% @user.friends.each do |friend|%>
+    <p> <%= friend%> </p>
+  <% end %>
+  <h2>Pending Friend Requests:</h2>
+  <% @user.pending_friends.each do |friend|%>
     <p> <%= friend%> </p>
   <% end %>
   <article class="timeline">

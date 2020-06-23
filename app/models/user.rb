@@ -23,7 +23,13 @@ class User < ApplicationRecord
   end
 
   def pending_friends
-    friendships.map{|friendship| friendship.friend }.compact
+    friends_array = []
+    inverse_friendships.each do |friendship|
+      if !friend?(friendship.user)
+        friends_array << friendship.user.name
+      end
+    end
+    friends_array.compact
   end
 
   def friend_requests
