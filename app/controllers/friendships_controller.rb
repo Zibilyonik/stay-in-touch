@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @friendship = Friendship.create(user_id:@user.id, friend_id: params[:friend_id])
+    @friendship = Friendship.create(user_id: @user.id, friend_id: params[:friend_id])
     if @friendship.save
       if @user.inverse_friendships.find_by(friend_id: @user.id)
         redirect_to users_path, notice: 'You accepted this person\'s friendship request.'
@@ -32,5 +32,4 @@ class FriendshipsController < ApplicationController
       redirect_to users_path, alert: 'You cannot delete this person from your friends list.'
     end
   end
-  
 end
