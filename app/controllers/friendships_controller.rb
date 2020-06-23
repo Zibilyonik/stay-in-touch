@@ -4,9 +4,9 @@ class FriendshipsController < ApplicationController
   end
 
   def create
-    @friendship = current_user.friendships.build(friend_id: params[:friend_id])
+    @friendship = current_user.friendships.create(friend_id: params[:friend_id])
     if @friendship.save
-      if Friendship.find_by(user_id: params[:friend_id], friend_id: current_user.id)
+      if current_user.inverse_friendships.find_by(user_id: params[:friend_id])
         redirect_to users_path, notice: 'You accepted this person\'s friendship request.'
       else
         redirect_to users_path, notice: 'You invited this person to a friendship.'

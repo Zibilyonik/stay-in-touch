@@ -17,9 +17,9 @@ module ApplicationHelper
   end
 
   def friend_request_button(friend)
-    friendship1 = Friendship.find_by(user_id: current_user.id, friend_id: friend.id)
-    friendship2 = Friendship.find_by(user_id: friend.id, friend_id: current_user.id)
     return nil if friend == current_user
+    friendship1 = current_user.friendships.find_by(friend_id: friend.id)
+    friendship2 = current_user.inverse_friendships.find_by(user_id: friend.id, friend_id: current_user.id)
     if friendship1 && friendship2
       button_to('Delete Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :destroy)
     elsif !friendship1 && !friendship2
