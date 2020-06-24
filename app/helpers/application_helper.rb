@@ -16,19 +16,20 @@ module ApplicationHelper
     end
   end
 
-  def friend_request_button(friend)
-    return nil if friend == current_user
+  def friend_request_button(user, friend)
 
-    friendship1 = current_user.friendships.find_by(friend_id: friend.id)
-    friendship2 = current_user.inverse_friendships.find_by(user_id: friend.id)
+    return nil if friend == current_user
+    
+    friendship1 = user.friendships.find_by(friend_id: friend.id)
+    friendship2 = user.inverse_friendships.find_by(user_id: friend.id)
     if friendship1 && friendship2
-      button_to('Delete Friend', user_friendship_path(user_id: current_user.id, friend_id: friend.id), method: :destroy)
+      button_to('Delete Friend', user_friendship_path(user_id: user.id, friend_id: friend.id), method: :destroy)
     elsif !friendship1 && !friendship2
-      button_to('Add Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
+      button_to('Add Friend', user_friendships_path(user_id: user.id, friend_id: friend.id), method: :create)
     elsif friendship1 && !friendship2
-      button_to('Cancel', user_friendship_path(user_id: current_user.id, friend_id: friend.id), method: :destroy)
+      button_to('Cancel', user_friendship_path(user_id: user.id, friend_id: friend.id), method: :destroy)
     else
-      button_to('Accept Friend', user_friendships_path(user_id: current_user.id, friend_id: friend.id), method: :create)
+      button_to('Accept Friend', user_friendships_path(user_id: user.id, friend_id: friend.id), method: :create)
     end
   end
 end

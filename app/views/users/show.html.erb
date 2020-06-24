@@ -1,6 +1,6 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
-  <span> <%= friend_request_button(@user) %> </span>
+  <span> <%= friend_request_button(current_user, @user) %> </span>
   <h2>Friends:</h2>
   <% @user.friends.each do |friend|%>
     <p> <%= friend%> </p>

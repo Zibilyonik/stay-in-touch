@@ -17,6 +17,10 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def show
+    @friendship = Friendship.find_by(user_id: params[:user_id], friend_id: params[:friend_id])
+  end
+  
   def destroy
     @user = User.find(params[:user_id])
     @friendship1 = Friendship.find_by(user_id: @user.id, friend_id: params[:friend_id])
