@@ -7,7 +7,10 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:user_id])
     @friendship = Friendship.create(user_id: @user.id, friend_id: params[:friend_id])
     if @friendship.save
-      if @user.inverse_friendships.find_by(friend_id: @user.id)
+      @inverse = @user.inverse_friendships.find_by(friend_id: @user.id)
+      if @inverse
+        @friendship.confirmed = true
+        @inverse.confirmed = true
         redirect_to users_path, notice: 'You accepted this person\'s friendship request.'
       else
         redirect_to users_path, notice: 'You invited this person to a friendship.'
