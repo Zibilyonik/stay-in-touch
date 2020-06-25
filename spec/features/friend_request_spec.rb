@@ -18,7 +18,7 @@ RSpec.describe 'User Friends', type: :feature do
   end
 
   it 'creates new request' do
-    visit '/users/2'
+    visit user_path(@user2.id)
     click_on 'Add Friend'
     visit user_path(@user1.id)
     expect(page).to have_content @user2.name
