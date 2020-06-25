@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def friend_request_button(user, friend)
     return nil if friend == current_user
-    
+
     friendship1 = user.friendships.find_by(friend_id: friend.id)
     friendship2 = user.inverse_friendships.find_by(user_id: friend.id)
     if friendship1 && friendship2
