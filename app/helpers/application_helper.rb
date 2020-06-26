@@ -22,19 +22,19 @@ module ApplicationHelper
     render @posts
   end
 
-  def friend_request_button(user, friend)
-    return nil if friend == current_user
+  def friend_request_button(usr, fri)
+    return nil if fri == current_user
 
-    friendship1 = user.friendships.find_by(friend_id: friend.id)
-    friendship2 = user.inverse_friendships.find_by(user_id: friend.id)
-    if friendship1 && friendship2
-      button_to('Delete Friend', user_friendship_path(id: friendship1.id, user_id: user.id, friend_id: friend.id), method: :destroy)
-    elsif !friendship1 && !friendship2
-      button_to('Add Friend', user_friendships_path(user_id: user.id, friend_id: friend.id), method: :create)
-    elsif friendship1 && !friendship2
-      button_to('Cancel', user_friendship_path(id: friendship1.id, user_id: user.id, friend_id: friend.id), method: :destroy)
+    f1 = usr.friendships.find_by(friend_id: fri.id)
+    f2 = usr.inverse_friendships.find_by(user_id: fri.id)
+    if f1 && f2
+      button_to('Delete Friend', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
+    elsif !f1 && !f2
+      button_to('Add Friend', user_friendships_path(user_id: usr.id, friend_id: fri.id), method: :create)
+    elsif f1 && !f2
+      button_to('Cancel Request', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
     else
-      button_to('Accept Friend', user_friendships_path(user_id: user.id, friend_id: friend.id), method: :create)
+      button_to('Accept Friend', user_friendships_path(user_id: usr.id, friend_id: fri.id), method: :create)
     end
   end
 end
