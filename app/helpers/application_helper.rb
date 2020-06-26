@@ -27,14 +27,16 @@ module ApplicationHelper
 
     f1 = usr.friendships.find_by(friend_id: fri.id)
     f2 = usr.inverse_friendships.find_by(user_id: fri.id)
-    if f1 && f2
-      button_to('Delete Friend', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
-    elsif !f1 && !f2
-      button_to('Add Friend', user_friendships_path(user_id: usr.id, friend_id: fri.id), method: :create)
-    elsif f1 && !f2
-      button_to('Cancel Request', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
-    else
+    if f1
+      if f2
+        button_to('Delete', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
+      else
+        button_to('Cancel', user_friendship_path(id: f1.id, user_id: usr.id, friend_id: fri.id), method: :destroy)
+      end
+    elsif f2
       button_to('Accept Friend', user_friendships_path(user_id: usr.id, friend_id: fri.id), method: :create)
+    else
+      button_to('Add Friend', user_friendships_path(user_id: usr.id, friend_id: fri.id), method: :create)
     end
   end
 end
