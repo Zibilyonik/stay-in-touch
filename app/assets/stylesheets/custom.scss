@@ -42,6 +42,16 @@ a {
   background-color: $primary-color-dark;
   color: $primary-color-light;
 
+  a {
+    color: $primary-color-light;
+    text-transform: uppercase;
+    font-weight: 900;
+
+    :hover {
+      color: #fff;
+    }
+  }
+
   .menu {
     width: 80%;
     justify-content: space-between;
@@ -57,16 +67,6 @@ a {
       }
     }
   }
-}
-
-.nav a {
-  color: $primary-color-light;
-  text-transform: uppercase;
-  font-weight: 900;
-}
-
-.nav a:hover {
-  color: #fff;
 }
 
 .main {
